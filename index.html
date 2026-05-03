@@ -1,9 +1,97 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My First Page</title>
-  </head>
-  <body>
-    <h1>Hello World! I am learning to build websites.</h1>
-  </body>
+<head>
+  <title>HomeHub Trader</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      background: #1a1a1a;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ff444f;
+    }
+    .logo { color: #ff444f; font-size: 24px; font-weight: bold; }
+    .container { padding: 30px; }
+    .card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border: 1px solid #2a2a2a;
+    }
+    h2 { color: #ff444f; margin-bottom: 15px; }
+    .btn {
+      background: #ff444f;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .btn:hover { background: #cc0000; }
+    p { color: #aaaaaa; line-height: 1.8; }
+    .status {
+      background: #1a3a1a;
+      color: #44ff44;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">⚡ HomeHub Trader</div>
+    <span style="color:#aaaaaa; font-size:13px;">Powered by Deriv</span>
+  </div>
+
+  <div class="container">
+
+    <div class="status">🟢 Platform Online</div>
+
+    <div class="card">
+      <h2>Welcome to HomeHub Trader</h2>
+      <p>Your gateway to professional trading on Deriv. 
+      Trade synthetic indices, forex, and more — 
+      all from one powerful platform.</p>
+      <a class="btn" href="https://track.deriv.com/_10827_/1/" target="_blank">
+        Start Trading Now
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>Why Trade With Us?</h2>
+      <p>✅ Trade 24/7 on synthetic indices</p>
+      <p>✅ Start with as little as $5</p>
+      <p>✅ Demo account available</p>
+      <p>✅ Fast withdrawals</p>
+      <p>✅ Regulated and trusted broker</p>
+    </div>
+
+    <div class="card">
+      <h2>Get Started Today</h2>
+      <p>Create your free Deriv account through our platform 
+      and get access to exclusive trading tools.</p>
+      <a class="btn" href="https://partner-tracking.deriv.com/click?a=10827&o=1&c=3&link_id=1" target="_blank">
+        Create Free Account
+      </a>
+    </div>
+
+  </div>
+
+</body>
 </html>
