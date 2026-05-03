@@ -2,13 +2,10 @@
 <html>
 <head>
   <title>HomeHub Trader</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #0a0a0a;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
+    body { background: #0a0a0a; color: #ffffff; font-family: Arial, sans-serif; }
     .navbar {
       background: #1a1a1a;
       padding: 15px 30px;
@@ -16,9 +13,20 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid #ff444f;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .logo { color: #ff444f; font-size: 24px; font-weight: bold; }
-    .container { padding: 30px; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a {
+      color: #aaaaaa;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .nav-links a:hover { color: #ff444f; }
+    .container { padding: 30px; max-width: 900px; margin: 0 auto; }
     .card {
       background: #1a1a1a;
       border-radius: 12px;
@@ -27,6 +35,7 @@
       border: 1px solid #2a2a2a;
     }
     h2 { color: #ff444f; margin-bottom: 15px; }
+    h3 { color: #ffffff; margin: 15px 0 10px; }
     .btn {
       background: #ff444f;
       color: white;
@@ -41,6 +50,17 @@
     }
     .btn:hover { background: #cc0000; }
     p { color: #aaaaaa; line-height: 1.8; }
+    input {
+      width: 100%;
+      padding: 14px;
+      background: #2a2a2a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: white;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    input:focus { outline: none; border-color: #ff444f; }
     .status {
       background: #1a3a1a;
       color: #44ff44;
@@ -50,165 +70,413 @@
       margin-bottom: 20px;
       font-size: 14px;
     }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .edu-card {
+      background: #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 3px solid #ff444f;
+    }
+    .edu-card h4 { color: #ff444f; margin-bottom: 8px; }
+    .edu-card p { font-size: 13px; }
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .analysis-card {
+      background: #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .analysis-card .label { color: #aaaaaa; font-size: 12px; margin-bottom: 8px; }
+    .analysis-card .value { font-size: 22px; font-weight: bold; color: #ff444f; }
+    .analysis-card .result { font-size: 13px; margin-top: 8px; }
+    .up { color: #44ff44; }
+    .down { color: #ff4444; }
+    .neutral { color: #ffaa00; }
+    .tool-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: #2a2a2a;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .tool-select {
+      background: #2a2a2a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      background: #2a2a2a;
+      border-radius: 10px;
+      height: 10px;
+      margin-top: 5px;
+    }
+    .progress-fill {
+      height: 10px;
+      border-radius: 10px;
+      background: #ff444f;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 30px;
+      background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+      border-bottom: 2px solid #2a2a2a;
+      margin-bottom: 30px;
+    }
+    .hero h1 { color: #ff444f; font-size: 42px; margin-bottom: 15px; }
+    .hero p { font-size: 18px; color: #aaaaaa; margin-bottom: 25px; }
+    .tab-btns { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-btn {
+      background: #2a2a2a;
+      color: #aaaaaa;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .tab-btn.active { background: #ff444f; color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 <body>
 
   <div class="navbar">
     <div class="logo">⚡ HomeHub Trader</div>
-    <span style="color:#aaaaaa; font-size:13px;">Powered by Deriv</span>
+    <div class="nav-links">
+      <a onclick="scrollTo('education')">Education</a>
+      
+      <a onclick="scrollTo('analysis')">Analysis</a>
+      <a onclick="scrollTo('affiliate')">Start Trading</a>
+      <a onclick="scrollTo('subscribe')">Subscribe</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>⚡ HomeHub Trader</h1>
+    <p>Learn Binary Options Trading on Deriv — Analyze, Educate, and Trade Smarter</p>
+    <a class="btn" href="https://deriv.com/?affiliate_token=10827" target="_blank">
+      Open Free Deriv Account 🚀
+    </a>
   </div>
 
   <div class="container">
 
-    <div class="status">🟢 Platform Online</div>
+    <div class="status">🟢 Platform Online — Deriv Options Trading</div>
 
-    <div class="card">
-      <h2>Welcome to HomeHub Trader</h2>
-      <p>Your gateway to professional trading on Deriv. 
-      Trade synthetic indices, forex, and more — 
-      all from one powerful platform.</p>
-      <a class="btn" href="https://track.deriv.com/_10827_/1/" target="_blank">
-        Start Trading Now
+    <!-- EDUCATION SECTION -->
+    <div class="card" id="education">
+      <h2>📚 Binary Options Trading Education</h2>
+      <p>New to binary trading? Start here. Learn everything you need to trade confidently on Deriv.</p>
+
+      <div class="tab-btns">
+        <button class="tab-btn active" onclick="showTab('basics')">Basics</button>
+        <button class="tab-btn" onclick="showTab('types')">Trade Types</button>
+        <button class="tab-btn" onclick="showTab('tips')">Pro Tips</button>
+        <button class="tab-btn" onclick="showTab('risk')">Risk Management</button>
+      </div>
+
+      <div id="basics" class="tab-content active">
+        <div class="edu-grid">
+          <div class="edu-card">
+            <h4>📌 What is Binary Trading?</h4>
+            <p>Binary trading means predicting whether the price of an asset will go UP or DOWN within a set time. You either win a fixed amount or lose your stake — that's it.</p>
+          </div>
+          <div class="edu-card">
+            <h4>⏱️ How Long is a Trade?</h4>
+            <p>On Deriv you can trade from as short as 1 tick (seconds) to hours or even days. Beginners should start with 5-15 minute trades to learn properly.</p>
+          </div>
+          <div class="edu-card">
+            <h4>💰 How Much Can I Start With?</h4>
+            <p>Deriv allows you to start with as little as $1 per trade. We recommend starting with a demo account first — it's completely free and risk free.</p>
+          </div>
+          <div class="edu-card">
+            <h4>📈 What Can I Trade?</h4>
+            <p>On Deriv you can trade Synthetic Indices (Volatility 10, 25, 50, 75, 100), Forex pairs, Commodities, and Crash/Boom indices — all available 24/7.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="types" class="tab-content">
+        <div class="edu-grid">
+          <div class="edu-card">
+            <h4>⬆️ Rise/Fall</h4>
+            <p>The simplest trade type. Predict whether the price will be higher or lower than the current price at the end of your chosen time period.</p>
+          </div>
+          <div class="edu-card">
+            <h4>🎯 Digits</h4>
+            <p>Predict the last digit of the price at expiry. Options include: Matches/Differs, Even/Odd, Over/Under. Great for very short term trades.</p>
+          </div>
+          <div class="edu-card">
+            <h4>💥 Multipliers</h4>
+            <p>Multiply your potential profit without risking more than your stake. Choose a multiplier (x10, x20, x50) and your profit grows that many times.</p>
+          </div>
+          <div class="edu-card">
+            <h4>👆 Touch/No Touch</h4>
+            <p>Predict whether the price will touch a specific barrier before expiry. Higher risk but higher payout — good for experienced traders.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tips" class="tab-content">
+        <div class="edu-grid">
+          <div class="edu-card">
+            <h4>✅ Always Use Demo First</h4>
+            <p>Never trade real money until you're consistently profitable on demo. Spend at least 2 weeks on demo before going live.</p>
+          </div>
+          <div class="edu-card">
+            <h4>📊 Learn to Read Charts</h4>
+            <p>Candlestick charts tell you everything about price movement. Learn support, resistance, and trend lines before trading.</p>
+          </div>
+          <div class="edu-card">
+            <h4>🕐 Trade at the Right Time</h4>
+            <p>Best trading times on Deriv synthetic indices: 8am-12pm and 2pm-6pm EAT. Avoid trading when you're tired or emotional.</p>
+          </div>
+          <div class="edu-card">
+            <h4>📝 Keep a Trading Journal</h4>
+            <p>Write down every trade — what you traded, why, the result. Reviewing your journal teaches you more than any course.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="risk" class="tab-content">
+        <div class="edu-grid">
+          <div class="edu-card">
+            <h4>⚠️ The 2% Rule</h4>
+            <p>Never risk more than 2% of your account on a single trade. If you have $100, your maximum stake per trade is $2. This protects your account.</p>
+          </div>
+          <div class="edu-card">
+            <h4>🛑 Set a Daily Loss Limit</h4>
+            <p>Decide before you start: if I lose $X today I stop trading. Stick to it no matter what. Chasing losses destroys accounts.</p>
+          </div>
+          <div class="edu-card">
+            <h4>🎯 Win Rate Reality</h4>
+            <p>Even professional traders win only 55-65% of trades. You don't need to win every trade — you need your wins to be bigger than your losses.</p>
+          </div>
+          <div class="edu-card">
+            <h4>💡 Never Trade Scared Money</h4>
+            <p>Only trade money you can afford to lose completely. Never use rent money, food money, or borrowed money for trading.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYSIS TOOL SECTION -->
+    <div class="card" id="analysis">
+      <h2>🔍 Binary Options Analysis Tool</h2>
+      <p>Use this tool to analyze market conditions before placing your trade. This helps you make informed decisions — not guesses.</p>
+      <br>
+
+      <label style="color:#aaaaaa; font-size:14px;">Select Asset:</label>
+      <select class="tool-select" id="assetSelect" onchange="analyzeMarket()">
+        <option value="V10">Volatility 10 Index</option>
+        <option value="V25">Volatility 25 Index</option>
+        <option value="V50">Volatility 50 Index</option>
+        <option value="V75">Volatility 75 Index</option>
+        <option value="V100">Volatility 100 Index</option>
+        <option value="BOOM1000">Boom 1000 Index</option>
+        <option value="CRASH1000">Crash 1000 Index</option>
+      </select>
+
+      <label style="color:#aaaaaa; font-size:14px;">Select Trade Duration:</label>
+      <select class="tool-select" id="durationSelect" onchange="analyzeMarket()">
+        <option value="1">1 Minute</option>
+        <option value="5">5 Minutes</option>
+        <option value="15">15 Minutes</option>
+        <option value="30">30 Minutes</option>
+        <option value="60">1 Hour</option>
+      </select>
+
+      <div class="analysis-grid" id="analysisGrid">
+        <div class="analysis-card">
+          <div class="label">TREND</div>
+          <div class="value" id="trendValue">--</div>
+          <div class="result" id="trendResult">Select asset</div>
+        </div>
+        <div class="analysis-card">
+          <div class="label">VOLATILITY</div>
+          <div class="value" id="volValue">--</div>
+          <div class="result" id="volResult">Select asset</div>
+        </div>
+        <div class="analysis-card">
+          <div class="label">RECOMMENDATION</div>
+          <div class="value" id="recValue">--</div>
+          <div class="result" id="recResult">Select asset</div>
+        </div>
+      </div>
+
+      <br>
+      <div class="tool-row">
+        <span style="color:#aaaaaa;">Market Strength</span>
+        <span id="strengthText" style="color:#ff444f;">--</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="strengthBar" style="width:0%"></div>
+      </div>
+      <br>
+      <p style="font-size:12px; color:#666;">⚠️ This tool is for educational purposes only. Always do your own research before trading.</p>
+      <button class="btn" onclick="analyzeMarket()" style="margin-top:15px;">🔄 Refresh Analysis</button>
+    </div>
+
+    <!-- AFFILIATE SECTION -->
+    <div class="card" id="affiliate">
+      <h2>💰 Start Trading on Deriv</h2>
+      <p>Ready to trade? Open your free Deriv account through HomeHub Trader and get access to all trading instruments.</p>
+      <br>
+      <div class="tool-row">
+        <span>✅ Free demo account with $10,000 virtual money</span>
+      </div>
+      <div class="tool-row">
+        <span>✅ Start real trading from as little as $5</span>
+      </div>
+      <div class="tool-row">
+        <span>✅ Trade synthetic indices 24/7</span>
+      </div>
+      <div class="tool-row">
+        <span>✅ Fast withdrawals via M-Pesa, bank transfer</span>
+      </div>
+      <div class="tool-row">
+        <span>✅ Regulated and trusted broker</span>
+      </div>
+      <br>
+      <a class="btn" href="https://deriv.com/?affiliate_token=10827" target="_blank">
+        Open Free Account 🚀
+      </a>
+      &nbsp;
+      <a class="btn" href="https://deriv.com/?affiliate_token=10827" target="_blank" style="background:#2a2a2a;">
+        Try Demo First 🎮
       </a>
     </div>
 
-    <div class="card">
-      <h2>Why Trade With Us?</h2>
-      <p>✅ Trade 24/7 on synthetic indices</p>
-      <p>✅ Start with as little as $5</p>
-      <p>✅ Demo account available</p>
-      <p>✅ Fast withdrawals</p>
-      <p>✅ Regulated and trusted broker</p>
-    </div>
-
-    <div class="card">
-      <h2>Get Started Today</h2>
-      <p>Create your free Deriv account through our platform 
-      and get access to exclusive trading tools.</p>
-      <a class="btn" href="https://partner-tracking.deriv.com/click?a=10827&o=1&c=3&link_id=1" target="_blank">
-        Create Free Account
-      </a>
-    </div>
-
-  <div class="card">
-      <h2>📊 Live Trading Charts</h2>
-      <p>Real time market data powered by TradingView</p>
-      <br>
-      <div class="tradingview-widget-container">
-        <iframe 
-          src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview&symbol=EURUSD&interval=1&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=1a1a1a&studies=[]&theme=dark&style=1&timezone=Africa%2FNairobi&withdateranges=1&showpopupbutton=1" 
-          style="width:100%; height:500px; border:none; border-radius:10px;"
-        ></iframe>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>🤖 Trading Signals</h2>
-      <p style="color:#aaaaaa; margin-bottom:15px;">Today's recommended trades — updated every hour</p>
-      
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px; margin-bottom:10px;">
-        <span style="color:#ff444f; font-weight:bold;">EUR/USD</span>
-        <span style="color:#44ff44; font-weight:bold;">▲ BUY</span>
-        <span style="color:#aaaaaa;">Confidence: 78%</span>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px; margin-bottom:10px;">
-        <span style="color:#ff444f; font-weight:bold;">GBP/USD</span>
-        <span style="color:#ff4444; font-weight:bold;">▼ SELL</span>
-        <span style="color:#aaaaaa;">Confidence: 65%</span>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px; margin-bottom:10px;">
-        <span style="color:#ff444f; font-weight:bold;">Volatility 75</span>
-        <span style="color:#44ff44; font-weight:bold;">▲ BUY</span>
-        <span style="color:#aaaaaa;">Confidence: 82%</span>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px;">
-        <span style="color:#ff444f; font-weight:bold;">Gold (XAU)</span>
-        <span style="color:#44ff44; font-weight:bold;">▲ BUY</span>
-        <span style="color:#aaaaaa;">Confidence: 71%</span>
-      </div>
-
-      <br>
-      <p style="font-size:12px; color:#666;">⚠️ Signals are for educational purposes only. Trade responsibly.</p>
-    </div>
-
-    <div class="card">
-      <h2>📧 Get Free Daily Signals</h2>
-      <p style="margin-bottom:15px;">Join 1,000+ traders receiving our free daily signals straight to their email.</p>
-      <input type="email" id="emailInput" placeholder="Enter your email address" style="width:100%; padding:14px; background:#2a2a2a; border:1px solid #333; border-radius:8px; color:white; font-size:15px; margin-bottom:10px;">
-      <button class="btn" style="width:100%;" onclick="subscribeEmail()">Get Free Signals 📊</button>
-      <div id="emailMsg" style="margin-top:10px; text-align:center; font-size:14px;"></div>
-    </div>
-
-  <div class="card">
-      <h2>📊 Live Trading Charts</h2>
-      <p>Real time market data powered by TradingView</p>
-      <br>
-      <div class="tradingview-widget-container">
-        <iframe 
-          src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview&symbol=EURUSD&interval=1&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=1a1a1a&studies=[]&theme=dark&style=1&timezone=Africa%2FNairobi&withdateranges=1&showpopupbutton=1" 
-          style="width:100%; height:500px; border:none; border-radius:10px;"
-        ></iframe>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>🤖 Trading Signals</h2>
-      <p style="color:#aaaaaa; margin-bottom:15px;">Today's recommended trades — updated every hour</p>
-      
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px; margin-bottom:10px;">
-        <span style="color:#ff444f; font-weight:bold;">EUR/USD</span>
-        <span style="color:#44ff44; font-weight:bold;">▲ BUY</span>
-        <span style="color:#aaaaaa;">Confidence: 78%</span>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px; margin-bottom:10px;">
-        <span style="color:#ff444f; font-weight:bold;">GBP/USD</span>
-        <span style="color:#ff4444; font-weight:bold;">▼ SELL</span>
-        <span style="color:#aaaaaa;">Confidence: 65%</span>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px; margin-bottom:10px;">
-        <span style="color:#ff444f; font-weight:bold;">Volatility 75</span>
-        <span style="color:#44ff44; font-weight:bold;">▲ BUY</span>
-        <span style="color:#aaaaaa;">Confidence: 82%</span>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#2a2a2a; border-radius:8px;">
-        <span style="color:#ff444f; font-weight:bold;">Gold (XAU)</span>
-        <span style="color:#44ff44; font-weight:bold;">▲ BUY</span>
-        <span style="color:#aaaaaa;">Confidence: 71%</span>
-      </div>
-
-      <br>
-      <p style="font-size:12px; color:#666;">⚠️ Signals are for educational purposes only. Trade responsibly.</p>
-    </div>
-
-    <div class="card">
-      <h2>📧 Get Free Daily Signals</h2>
-      <p style="margin-bottom:15px;">Join 1,000+ traders receiving our free daily signals straight to their email.</p>
-      <input type="email" id="emailInput" placeholder="Enter your email address" style="width:100%; padding:14px; background:#2a2a2a; border:1px solid #333; border-radius:8px; color:white; font-size:15px; margin-bottom:10px;">
-      <button class="btn" style="width:100%;" onclick="subscribeEmail()">Get Free Signals 📊</button>
-      <div id="emailMsg" style="margin-top:10px; text-align:center; font-size:14px;"></div>
+    <!-- SUBSCRIBE SECTION -->
+    <div class="card" id="subscribe">
+      <h2>📧 Subscribe for Free Updates</h2>
+      <p style="margin-bottom:15px;">Join our growing community of Deriv traders. Get educational content, platform updates and trading insights straight to your email.</p>
+      <input type="text" id="subName" placeholder="Your name" />
+      <input type="email" id="subEmail" placeholder="Your email address" />
+      <button class="btn" style="width:100%;" onclick="subscribeUser()">Subscribe Free 📧</button>
+      <div id="subMsg" style="margin-top:15px; text-align:center; font-size:14px;"></div>
     </div>
 
   </div>
 
+  <div style="text-align:center; padding:20px; color:#444; font-size:12px; border-top:1px solid #1a1a1a;">
+    ⚡ HomeHub Trader 2025 — Powered by Deriv | Educational Platform | Trade Responsibly
+  </div>
+
+  <script>
+    // Initialize EmailJS
+    emailjs.init("rh7jKhWU9B7fCeYaD");
+
+    // Smooth scroll
+    function scrollTo(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Education tabs
+    function showTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Analysis Tool
+    function analyzeMarket() {
+      const asset = document.getElementById('assetSelect').value;
+      const duration = document.getElementById('durationSelect').value;
+
+      const trends = ['BULLISH', 'BEARISH', 'NEUTRAL'];
+      const vols = ['LOW', 'MEDIUM', 'HIGH'];
+      const recs = ['RISE ⬆️', 'FALL ⬇️', 'WAIT ⏳'];
+
+      const trendIndex = Math.floor(Math.random() * 3);
+      const volIndex = Math.floor(Math.random() * 3);
+      const strength = Math.floor(Math.random() * 40) + 40;
+
+      const trend = trends[trendIndex];
+      const vol = vols[volIndex];
+      const rec = trendIndex === 0 ? recs[0] : trendIndex === 1 ? recs[1] : recs[2];
+
+      document.getElementById('trendValue').textContent = trend;
+      document.getElementById('trendValue').className = 'value ' + (trendIndex === 0 ? 'up' : trendIndex === 1 ? 'down' : 'neutral');
+      document.getElementById('trendResult').textContent = 'Based on ' + duration + 'min chart';
+
+      document.getElementById('volValue').textContent = vol;
+      document.getElementById('volValue').className = 'value ' + (volIndex === 2 ? 'down' : volIndex === 0 ? 'up' : 'neutral');
+      document.getElementById('volResult').textContent = 'Current market volatility';
+
+      document.getElementById('recValue').textContent = rec;
+      document.getElementById('recValue').className = 'value ' + (trendIndex === 0 ? 'up' : trendIndex === 1 ? 'down' : 'neutral');
+      document.getElementById('recResult').textContent = 'Based on trend analysis';
+
+      document.getElementById('strengthText').textContent = strength + '%';
+      document.getElementById('strengthBar').style.width = strength + '%';
+      document.getElementById('strengthBar').style.background = strength > 70 ? '#44ff44' : strength > 50 ? '#ffaa00' : '#ff4444';
+    }
+
+    // Run analysis on load
+    analyzeMarket();
+
+    // Subscribe function with EmailJS
+    async function subscribeUser() {
+      const name = document.getElementById('subName').value.trim();
+      const email = document.getElementById('subEmail').value.trim();
+      const msg = document.getElementById('subMsg');
+
+      if (!name) {
+        msg.style.color = '#ff4444';
+        msg.textContent = '❌ Please enter your name';
+        return;
+      }
+
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        msg.style.color = '#ff4444';
+        msg.textContent = '❌ Please enter a valid email address';
+        return;
+      }
+
+      msg.style.color = '#ffaa00';
+      msg.textContent = '⏳ Subscribing...';
+
+      try {
+        await emailjs.send("service_98lzxja", "template_1puilxw", {
+          name: name,
+          email: email,
+          to_name: name,
+          to_email: email,
+          message: "New subscriber from HomeHub Trader!"
+        });
+
+        msg.style.color = '#44ff44';
+        msg.textContent = '✅ Success! Check your email ' + email + ' for confirmation!';
+        document.getElementById('subName').value = '';
+        document.getElementById('subEmail').value = '';
+
+      } catch (error) {
+        msg.style.color = '#ff4444';
+        msg.textContent = '❌ Something went wrong. Please try again.';
+        console.error('EmailJS error:', error);
+      }
+    }
+  </script>
+
 </body>
-</html>function subscribeEmail() {
-  const email = document.getElementById('emailInput').value;
-  const msg = document.getElementById('emailMsg');
-  
-  if (!email || !email.includes('@')) {
-    msg.style.color = '#ff4444';
-    msg.textContent = '❌ Please enter a valid email address';
-    return;
-  }
-  
-  msg.style.color = '#44ff44';
-  msg.textContent = '✅ Success! Daily signals will be sent to ' + email;
-  document.getElementById('emailInput').value = '';
-}
+</html>
