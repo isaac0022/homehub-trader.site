@@ -2,6 +2,12 @@
 <html>
 <head>
   <title>HomeHub Trader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -89,6 +95,36 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
       margin-top: 15px;
+    }
+    @media (max-width: 600px) {
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+      .edu-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 28px;
+      }
+      .hero p {
+        font-size: 15px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .btn {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .tool-row {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+      }
+      .container {
+        padding: 15px;
+      }
     }
     .analysis-card {
       background: #2a2a2a;
@@ -479,4 +515,4 @@
   </script>
 
 </body>
-</html>
+</html>H
