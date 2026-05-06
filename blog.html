@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog — HomeHub Trader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn binary options trading on Deriv. Tips, strategies and education for Kenyan traders.">
+  <meta name="keywords" content="Deriv trading Kenya, binary options, volatility 75, digits trading, make money online Kenya">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; color: #ffffff; font-family: Arial, sans-serif; }
+    .navbar {
+      background: #1a1a1a;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ff444f;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { color: #ff444f; font-size: 20px; font-weight: bold; text-decoration: none; }
+    .back-btn {
+      background: #2a2a2a;
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-btn:hover { background: #ff444f; }
+    .container { padding: 20px; max-width: 900px; margin: 0 auto; }
+    .card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border: 1px solid #2a2a2a;
+    }
+    h1 { color: #ff444f; margin-bottom: 10px; }
+    h2 { color: #ff444f; margin-bottom: 15px; }
+    h3 { color: #ffffff; margin-bottom: 10px; line-height: 1.4; }
+    p { color: #aaaaaa; line-height: 1.8; margin-bottom: 10px; }
+    .btn {
+      background: #ff444f;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .btn:hover { background: #cc0000; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+      border-bottom: 2px solid #2a2a2a;
+      margin-bottom: 25px;
+    }
+    .hero h1 { font-size: 36px; margin-bottom: 10px; }
+    .hero p { font-size: 16px; color: #aaaaaa; }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .blog-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      transition: border-color 0.3s;
+      cursor: pointer;
+    }
+    .blog-card:hover { border-color: #ff444f; }
+    .blog-thumb {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .blog-thumb.red { background: linear-gradient(135deg, #3a0a0a, #1a0505); }
+    .blog-thumb.blue { background: linear-gradient(135deg, #0a0a3a, #050515); }
+    .blog-thumb.green { background: linear-gradient(135deg, #0a3a0a, #051505); }
+    .blog-thumb.gold { background: linear-gradient(135deg, #3a2a0a, #1a1505); }
+    .blog-content { padding: 20px; }
+    .blog-tag {
+      background: #ff444f;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .blog-date { color: #666; font-size: 12px; margin-top: 10px; }
+    .read-time { color: #666; font-size: 12px; }
+
+    /* Article View */
+    .article { display: none; }
+    .article.active { display: block; }
+    .article-header {
+      background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #2a2a2a;
+    }
+    .article-body h3 { color: #ff444f; margin: 20px 0 10px; font-size: 18px; }
+    .article-body p { color: #cccccc; line-height: 1.9; margin-bottom: 15px; }
+    .article-body ul { color: #cccccc; padding-left: 20px; margin-bottom: 15px; }
+    .article-body ul li { margin-bottom: 8px; line-height: 1.8; }
+    .article-body .highlight {
+      background: #2a2a2a;
+      border-left: 3px solid #ff444f;
+      padding: 15px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 15px 0;
+      color: #ffffff;
+    }
+    .back-to-blog {
+      color: #ff444f;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    .back-to-blog:hover { text-decoration: underline; }
+
+    @media(max-width:600px) {
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html" class="logo">⚡ HomeHub Trader</a>
+    <a href="index.html" class="back-btn">← Back to Home</a>
+  </div>
+
+  <div class="hero">
+    <h1>📝 HomeHub Trader Blog</h1>
+    <p>Learn binary options trading — tips, strategies and education for Deriv traders</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Blog List -->
+    <div id="blogList">
+      <div class="blog-grid">
+
+        <div class="blog-card" onclick="openArticle('article1')">
+          <div class="blog-thumb red">📈</div>
+          <div class="blog-content">
+            <span class="blog-tag">Beginner</span>
+            <h3>What is Binary Options Trading on Deriv? Complete Beginner Guide</h3>
+            <p style="font-size:13px;">Everything you need to know to start trading binary options on Deriv safely and profitably...</p>
+            <div class="blog-date">May 2025 · <span class="read-time">5 min read</span></div>
+          </div>
+        </div>
+
+        <div class="blog-card" onclick="openArticle('article2')">
+          <div class="blog-thumb blue">🔢</div>
+          <div class="blog-content">
+            <span class="blog-tag">Strategy</span>
+            <h3>Digits Trading on Deriv: Even/Odd, Over/Under & Matches Strategy</h3>
+            <p style="font-size:13px;">Master the most popular trading type on Deriv with these proven digit strategies...</p>
+            <div class="blog-date">May 2025 · <span class="read-time">7 min read</span></div>
+          </div>
+        </div>
+
+        <div class="blog-card" onclick="openArticle('article3')">
+          <div class="blog-thumb green">💰</div>
+          <div class="blog-content">
+            <span class="blog-tag">Risk Management</span>
+            <h3>How to Manage Your Money Trading Binary Options — The 2% Rule</h3>
+            <p style="font-size:13px;">The number one reason traders lose money is poor money management. Learn how to protect your account...</p>
+            <div class="blog-date">May 2025 · <span class="read-time">4 min read</span></div>
+          </div>
+        </div>
+
+        <div class="blog-card" onclick="openArticle('article4')">
+          <div class="blog-thumb gold">⚡</div>
+          <div class="blog-content">
+            <span class="blog-tag">Advanced</span>
+            <h3>Volatility 75 Index: Why It's the Most Popular Index in Kenya</h3>
+            <p style="font-size:13px;">V75 is the favourite index for Kenyan traders. Here's everything you need to know about it...</p>
+            <div class="blog-date">May 2025 · <span class="read-time">6 min read</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Article 1 -->
+    <div id="article1" class="article">
+      <span class="back-to-blog" onclick="backToBlog()">← Back to Blog</span>
+      <div class="article-header">
+        <span class="blog-tag">Beginner</span>
+        <h1 style="margin-top:10px;">What is Binary Options Trading on Deriv?</h1>
+        <p style="margin-top:10px;">May 2025 · 5 min read · By HomeHub Trader</p>
+      </div>
+      <div class="article-body card">
+        <h3>What is Binary Options Trading?</h3>
+        <p>Binary options trading is one of the simplest forms of financial trading. The word "binary" means two outcomes — you either win or lose. You predict whether the price of an asset will go UP or DOWN within a specific time period.</p>
+        <p>If your prediction is correct, you win a fixed payout. If wrong, you lose your stake. That's it — simple and straightforward.</p>
+
+        <div class="highlight">
+          💡 Example: You predict Volatility 75 Index will RISE in the next 5 minutes. You stake $1. If you're right — you win $0.85 profit. If wrong — you lose your $1 stake.
+        </div>
+
+        <h3>Why Trade on Deriv?</h3>
+        <p>Deriv is one of the most trusted binary options brokers in the world with over 20 years of experience. Here's why thousands of Kenyan traders choose Deriv:</p>
+        <ul>
+          <li>✅ Start with as little as $5</li>
+          <li>✅ Free demo account with $10,000 virtual money</li>
+          <li>✅ Trade 24/7 including weekends</li>
+          <li>✅ Fast M-Pesa withdrawals</li>
+          <li>✅ Regulated and trusted broker</li>
+          <li>✅ Synthetic indices always available</li>
+        </ul>
+
+        <h3>What Can You Trade on Deriv?</h3>
+        <p>Deriv offers a wide range of assets but the most popular among Kenyan traders are Synthetic Indices — these are computer generated indices that are available 24/7 and not affected by world news:</p>
+        <ul>
+          <li>📊 Volatility 10, 25, 50, 75, 100 Index</li>
+          <li>⚡ Volatility 10(1s), 25(1s), 50(1s), 75(1s), 100(1s) Index</li>
+          <li>💥 Boom 300, 500, 1000 Index</li>
+          <li>📉 Crash 300, 500, 1000 Index</li>
+        </ul>
+
+        <h3>How to Get Started</h3>
+        <p>Getting started on Deriv is very simple and takes less than 5 minutes:</p>
+        <ul>
+          <li>1️⃣ Create a free account on Deriv</li>
+          <li>2️⃣ Verify your email address</li>
+          <li>3️⃣ Start with a demo account — practice with $10,000 virtual money</li>
+          <li>4️⃣ Learn and practice for at least 2 weeks</li>
+          <li>5️⃣ Deposit real money only when consistently profitable on demo</li>
+        </ul>
+
+        <div class="highlight">
+          ⚠️ Important: Never deposit real money until you are consistently profitable on demo. Trading involves risk — never trade money you cannot afford to lose.
+        </div>
+
+        <br>
+        <a href="https://deriv.com/signup/" target="_blank" class="btn">Open Free Deriv Account 🚀</a>
+      </div>
+    </div>
+
+    <!-- Article 2 -->
+    <div id="article2" class="article">
+      <span class="back-to-blog" onclick="backToBlog()">← Back to Blog</span>
+      <div class="article-header">
+        <span class="blog-tag">Strategy</span>
+        <h1 style="margin-top:10px;">Digits Trading: Even/Odd, Over/Under & Matches Strategy</h1>
+        <p style="margin-top:10px;">May 2025 · 7 min read · By HomeHub Trader</p>
+      </div>
+      <div class="article-body card">
+        <h3>What is Digits Trading?</h3>
+        <p>Digits trading is one of the most popular trade types on Deriv, especially among Kenyan traders. Instead of predicting price direction, you predict the LAST DIGIT of the price at expiry.</p>
+        <p>For example, if the price is 1234.567 — the last digit is 7. Digits trading is all about predicting what that last digit will be.</p>
+
+        <h3>Types of Digits Trades</h3>
+
+        <div class="highlight">
+          🔢 Even/Odd: Predict whether the last digit will be even (0,2,4,6,8) or odd (1,3,5,7,9). Payout is around 95% making it one of the best value trades on Deriv.
+        </div>
+
+        <div class="highlight">
+          ⬆️⬇️ Over/Under: Predict whether the last digit will be over 4 (5,6,7,8,9) or under 5 (0,1,2,3,4). Similar payout to Even/Odd.
+        </div>
+
+        <div class="highlight">
+          🎯 Matches/Differs: Predict the exact last digit (0-9). Matches pays around 800% but is harder to win. Differs pays around 5% but wins 90% of the time.
+        </div>
+
+        <h3>Even/Odd Strategy</h3>
+        <p>The key to Even/Odd trading is using statistical analysis. Use our HomeHub Trader Digits Analysis Tool to check the current Even/Odd ratio before trading:</p>
+        <ul>
+          <li>✅ If Even is above 55% — consider trading ODD (it's due)</li>
+          <li>✅ If Odd is above 55% — consider trading EVEN (it's due)</li>
+          <li>⏳ If ratio is close to 50/50 — wait for a clearer signal</li>
+        </ul>
+
+        <h3>Over/Under Strategy</h3>
+        <ul>
+          <li>✅ Check the Over/Under ratio on our analysis tool</li>
+          <li>✅ If Over is above 55% — consider trading UNDER</li>
+          <li>✅ If Under is above 55% — consider trading OVER</li>
+          <li>⚠️ Never chase losses — stick to your strategy</li>
+        </ul>
+
+        <h3>Matches Strategy</h3>
+        <p>For Matches, use the cold digit strategy — trade the digit that has appeared least in the last 100 ticks. Our analysis tool shows you exactly which digit is coldest!</p>
+
+        <div class="highlight">
+          ⚠️ Remember: Past patterns do not guarantee future results. Always use proper money management and never risk more than 2% of your account per trade.
+        </div>
+
+        <br>
+        <a href="analysis tool.html" class="btn">Open Digits Analysis Tool 🔢</a>
+      </div>
+    </div>
+
+    <!-- Article 3 -->
+    <div id="article3" class="article">
+      <span class="back-to-blog" onclick="backToBlog()">← Back to Blog</span>
+      <div class="article-header">
+        <span class="blog-tag">Risk Management</span>
+        <h1 style="margin-top:10px;">How to Manage Your Money Trading Binary Options</h1>
+        <p style="margin-top:10px;">May 2025 · 4 min read · By HomeHub Trader</p>
+      </div>
+      <div class="article-body card">
+        <h3>Why Money Management is Everything</h3>
+        <p>Most traders don't lose because of bad strategies — they lose because of bad money management. You can have the best strategy in the world but if you risk too much per trade you will eventually blow your account.</p>
+
+        <h3>The 2% Rule</h3>
+        <div class="highlight">
+          💡 Never risk more than 2% of your total account balance on a single trade. If you have $100 — maximum stake per trade is $2. If you have $50 — maximum stake is $1.
+        </div>
+
+        <h3>Why the 2% Rule Works</h3>
+        <p>Even if you lose 10 trades in a row (which happens to everyone), you still have 80% of your account left. This gives you time to recover without going broke.</p>
+
+        <h3>Set a Daily Loss Limit</h3>
+        <ul>
+          <li>✅ Decide your maximum daily loss before you start</li>
+          <li>✅ If you hit that limit — STOP trading for the day</li>
+          <li>✅ Never chase losses — emotional trading destroys accounts</li>
+          <li>✅ A good daily loss limit is 10% of your account</li>
+        </ul>
+
+        <h3>Set a Daily Profit Target</h3>
+        <ul>
+          <li>✅ Set a realistic daily profit target — 5-10% of account</li>
+          <li>✅ Once you hit your target — STOP trading</li>
+          <li>✅ Greedy traders always give back their profits</li>
+        </ul>
+
+        <h3>The Golden Rules</h3>
+        <ul>
+          <li>🔴 Never trade scared money — only trade what you can afford to lose</li>
+          <li>🔴 Never borrow money to trade</li>
+          <li>🔴 Never trade when emotional — angry, sad, or desperate</li>
+          <li>🔴 Never try to recover losses in one trade</li>
+          <li>🟢 Always use a demo account first</li>
+          <li>🟢 Keep a trading journal</li>
+          <li>🟢 Review your trades every week</li>
+        </ul>
+
+        <div class="highlight">
+          💪 Remember: Consistent small profits beat big risky wins every time. Slow and steady wins the trading race.
+        </div>
+
+        <br>
+        <a href="https://deriv.com/signup/" target="_blank" class="btn">Start with Free Demo Account 🎮</a>
+      </div>
+    </div>
+
+    <!-- Article 4 -->
+    <div id="article4" class="article">
+      <span class="back-to-blog" onclick="backToBlog()">← Back to Blog</span>
+      <div class="article-header">
+        <span class="blog-tag">Advanced</span>
+        <h1 style="margin-top:10px;">Volatility 75 Index: Why It's the Most Popular in Kenya</h1>
+        <p style="margin-top:10px;">May 2025 · 6 min read · By HomeHub Trader</p>
+      </div>
+      <div class="article-body card">
+        <h3>What is Volatility 75 Index?</h3>
+        <p>Volatility 75 Index (V75) is a synthetic index offered by Deriv that simulates market movements with 75% volatility. It is by far the most popular trading instrument among Kenyan and African traders.</p>
+
+        <h3>Why Kenyan Traders Love V75</h3>
+        <ul>
+          <li>✅ Available 24/7 including weekends and holidays</li>
+          <li>✅ Not affected by world news or economic events</li>
+          <li>✅ Consistent price movements — easier to analyze</li>
+          <li>✅ Good payout rates on all trade types</li>
+          <li>✅ Works well with digits, rise/fall and touch trades</li>
+        </ul>
+
+        <h3>V75 vs V75 (1s)</h3>
+        <div class="highlight">
+          ⚡ V75 (1s) means ticks come every 1 second instead of every 2-3 seconds. This makes it faster and more exciting but also harder to analyze. Beginners should start with regular V75 before moving to V75 (1s).
+        </div>
+
+        <h3>Best Trade Types for V75</h3>
+        <ul>
+          <li>📈 Rise/Fall — predict price direction over 5-15 minutes</li>
+          <li>🔢 Even/Odd digits — very popular on V75</li>
+          <li>⬆️ Over/Under digits — consistent patterns on V75</li>
+          <li>🎯 Matches — use cold digit strategy for best results</li>
+        </ul>
+
+        <h3>V75 Trading Tips</h3>
+        <ul>
+          <li>✅ Always check the trend before trading — is price going up or down?</li>
+          <li>✅ Use our digits analysis tool to check Even/Odd ratio</li>
+          <li>✅ Trade with the trend — don't fight the market</li>
+          <li>✅ Use 5-15 minute timeframes for best results</li>
+          <li>✅ Start with small stakes until you're confident</li>
+        </ul>
+
+        <div class="highlight">
+          🏆 Pro Tip: The best time to trade V75 in Kenya is between 8am-12pm and 2pm-6pm EAT. Avoid trading late at night when you're tired.
+        </div>
+
+        <br>
+        <a href="analysis tool.html" class="btn">Analyze V75 Now 📊</a>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card" style="text-align:center;" id="blogCta">
+      <h2>Ready to Start Trading?</h2>
+      <p style="margin-bottom:20px;">Open your free Deriv account and practice on demo first!</p>
+      <a href="https://deriv.com/signup/" target="_blank" class="btn">Open Free Account 🚀</a>
+    </div>
+
+  </div>
+
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/254792689518?text=Hello%20HomeHub%20Trader!%20I%20want%20to%20learn%20more%20about%20binary%20trading%20on%20Deriv."
+     target="_blank"
+     style="position:fixed; bottom:25px; right:25px; background:#25D366; color:white; border-radius:50px; padding:15px 25px; font-size:16px; font-weight:bold; text-decoration:none; box-shadow:0 4px 15px rgba(37,211,102,0.4); z-index:1000;">
+    💬 WhatsApp
+  </a>
+
+  <script>
+    function openArticle(id) {
+      document.getElementById('blogList').style.display = 'none';
+      document.getElementById('blogCta').style.display = 'none';
+      document.querySelectorAll('.article').forEach(a => a.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function backToBlog() {
+      document.querySelectorAll('.article').forEach(a => a.classList.remove('active'));
+      document.getElementById('blogList').style.display = 'block';
+      document.getElementById('blogCta').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+</body>
+</html>
